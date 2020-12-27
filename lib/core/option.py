@@ -50,6 +50,7 @@ def set_running_options(args):
         plugins.remove('__init__.py')
         plugins.remove('__pycache__')
         register_plugins(plugins)
+        print(running_config.plugins)
 
     # 自定义线程数
     running_config.threads = vulnscan_config.threads
