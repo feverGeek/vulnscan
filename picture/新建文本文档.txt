@@ -1,0 +1,33 @@
+目标
+导入
+开始
+中止
+从文件导入
+------------------------
+收录漏洞
+------------------------
+扫描结果
+导出到html
+------------------------
+设置
+
+扫描设置
+线程数:
+超时时间:
+应用
+
+        self.urlsTableViewModel = QtGui.QStandardItemModel(0, 2)
+        self.urlsTableViewModel.setHorizontalHeaderLabels(['ID', '网站地址'])
+        self.urlsTableView = QtWidgets.QTableView(self.tab)
+        self.urlsTableView.setObjectName("urlsTableView")
+        self.urlsTableView.setModel(self.urlsTableViewModel)
+        self.urlsTableView.horizontalHeader().setStretchLastSection(True)
+        self.verticalLayout_4.addWidget(self.urlsTableView)
+
+        self.vulnsTableViewModel = QtGui.QStandardItemModel(0, 2)
+        self.vulnsTableViewModel.setHorizontalHeaderLabels(['ID', '漏洞类型'])
+        self.vulnsTableView = QtWidgets.QTableView(self.tab_2)
+        self.vulnsTableView.setObjectName("vulnsTableView")
+        self.vulnsTableView.setModel(self.vulnsTableViewModel)
+        self.vulnsTableView.horizontalHeader().setStretchLastSection(True)
+        self.horizontalLayout_6.addWidget(self.vulnsTableView)
