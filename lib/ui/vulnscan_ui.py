@@ -46,6 +46,7 @@ class Ui_Form(object):
         self.urlsTableWidget.setHorizontalHeaderLabels(horizontalHeader)
         self.urlsTableWidget.horizontalHeader().setStretchLastSection(True)
         self.urlsTableWidget.verticalHeader().setVisible(False)
+        self.urlsTableWidget.setFocusPolicy(QtCore.Qt.StrongFocus)
         self.verticalLayout_4.addWidget(self.urlsTableWidget)
 
         self.horizontalLayout_8.addLayout(self.verticalLayout_4)
@@ -73,6 +74,8 @@ class Ui_Form(object):
         self.vulnsTableWidget.setHorizontalHeaderLabels(horizontalHeader)
         self.vulnsTableWidget.horizontalHeader().setStretchLastSection(True)
         self.vulnsTableWidget.verticalHeader().setVisible(False)
+        self.vulnsTableWidget.setFocusPolicy(QtCore.Qt.StrongFocus)
+        self.verticalLayout_4.addWidget(self.urlsTableWidget)
         self.horizontalLayout_6.addWidget(self.vulnsTableWidget)
 
         self.tabWidget.addTab(self.tab_2, "")
