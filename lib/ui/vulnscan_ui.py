@@ -39,13 +39,14 @@ class Ui_Form(object):
         self.horizontalLayout_7.addWidget(self.importPushButton)
         self.verticalLayout_4.addLayout(self.horizontalLayout_7)
 
-        self.urlsTableViewModel = QtGui.QStandardItemModel(0, 2)
-        self.urlsTableViewModel.setHorizontalHeaderLabels(['ID', '网站地址'])
-        self.urlsTableView = QtWidgets.QTableView(self.tab)
-        self.urlsTableView.setObjectName("urlsTableView")
-        self.urlsTableView.setModel(self.urlsTableViewModel)
-        self.urlsTableView.horizontalHeader().setStretchLastSection(True)
-        self.verticalLayout_4.addWidget(self.urlsTableView)
+        self.urlsTableWidget = QtWidgets.QTableWidget(self.tab)
+        self.urlsTableWidget.setObjectName("urlsTableWidget")
+        self.urlsTableWidget.setColumnCount(2)
+        horizontalHeader = ['ID', '网站地址']
+        self.urlsTableWidget.setHorizontalHeaderLabels(horizontalHeader)
+        self.urlsTableWidget.horizontalHeader().setStretchLastSection(True)
+        self.urlsTableWidget.verticalHeader().setVisible(False)
+        self.verticalLayout_4.addWidget(self.urlsTableWidget)
 
         self.horizontalLayout_8.addLayout(self.verticalLayout_4)
         self.verticalLayout_3 = QtWidgets.QVBoxLayout()
@@ -65,13 +66,14 @@ class Ui_Form(object):
         self.horizontalLayout_6 = QtWidgets.QHBoxLayout(self.tab_2)
         self.horizontalLayout_6.setObjectName("horizontalLayout_6")
 
-        self.vulnsTableViewModel = QtGui.QStandardItemModel(0, 2)
-        self.vulnsTableViewModel.setHorizontalHeaderLabels(['ID', '漏洞类型'])
-        self.vulnsTableView = QtWidgets.QTableView(self.tab_2)
-        self.vulnsTableView.setObjectName("vulnsTableView")
-        self.vulnsTableView.setModel(self.vulnsTableViewModel)
-        self.vulnsTableView.horizontalHeader().setStretchLastSection(True)
-        self.horizontalLayout_6.addWidget(self.vulnsTableView)
+        self.vulnsTableWidget = QtWidgets.QTableWidget(self.tab_2)
+        self.vulnsTableWidget.setObjectName("vulnsTableWidget")
+        self.vulnsTableWidget.setColumnCount(2)
+        horizontalHeader = ['ID', '漏洞类型']
+        self.vulnsTableWidget.setHorizontalHeaderLabels(horizontalHeader)
+        self.vulnsTableWidget.horizontalHeader().setStretchLastSection(True)
+        self.vulnsTableWidget.verticalHeader().setVisible(False)
+        self.horizontalLayout_6.addWidget(self.vulnsTableWidget)
 
         self.tabWidget.addTab(self.tab_2, "")
         self.tab_3 = QtWidgets.QWidget()
@@ -157,3 +159,13 @@ class Ui_Form(object):
         self.cookieLabel.setText(_translate("Form", "Cookie:        "))
         self.applyPushButton.setText(_translate("Form", "应用"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_3), _translate("Form", "设置"))
+
+
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    Form = QtWidgets.QWidget()
+    ui = Ui_Form()
+    ui.setupUi(Form)
+    Form.show()
+    sys.exit(app.exec_())
