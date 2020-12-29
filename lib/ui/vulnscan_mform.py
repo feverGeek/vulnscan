@@ -1,5 +1,6 @@
-from PyQt5.QtWidgets import QWidget, QTableWidgetItem, QFileDialog
-from PyQt5.QtCore    import pyqtSlot
+from PyQt5.QtWidgets import QWidget, QTableWidgetItem, QFileDialog, QMessageBox
+from PyQt5.QtCore    import pyqtSlot 
+from PyQt5.QtCore    import Qt
 
 from lib.core.data        import vulnscan_config, running_config
 from lib.core.common      import makeurl
@@ -29,14 +30,18 @@ class MForm(QWidget, Ui_Form):
 
     @pyqtSlot()
     def on_importPushButton_clicked(self):
+        url = self.urlLineEdit.text()
+        if not url:
+            self.showdialog('警告','URL不能为空')
+            return
+
         row = self.urlsTableWidget.rowCount()
 
         self.urlsTableWidget.insertRow(row)
         item = QTableWidgetItem('%s' % (row + 1))
         self.urlsTableWidget.setItem(row, 0, item)
 
-        url = self.urlLineEdit.text()
-        item = QTableWidgetItem('%s' % url)
+        item = QTableWidgetItem('%s' % makeurl(url))
         self.urlsTableWidget.setItem(row, 1, item)
 
     @pyqtSlot()
@@ -74,3 +79,7 @@ class MForm(QWidget, Ui_Form):
     @pyqtSlot()
     def on_applyPushButton_clicked(self):
         print('clicked')
+
+    def showdialog(self, title, content):
+        msg_box = QMessageBox(QMessageBox.Information, title, content)
+        msg_box.exec_()
