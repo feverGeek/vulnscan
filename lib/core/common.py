@@ -75,7 +75,7 @@ def banner():
         init(autoreset=True)
 
     _ = banners[random.randint(0, 3)]
-    print(_)
+    sys.stdout.write(_)
 
 
 def makeurl(url):
