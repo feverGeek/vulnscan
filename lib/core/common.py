@@ -1,3 +1,4 @@
+import platform
 import random
 import sys
 
@@ -68,6 +69,11 @@ banners = [banner_0, banner_1, banner_2, banner_3]
 
 
 def banner():
+    if(platform.system()=='Windows'):
+        import colorama
+        from colorama import init,Fore,Back,Style
+        init(autoreset=True)
+
     _ = banners[random.randint(0, 3)]
     print(_)
 
