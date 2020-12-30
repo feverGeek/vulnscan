@@ -52,6 +52,13 @@
           </layout>
          </item>
          <item>
+          <widget class="QLabel" name="scanInfoLabel">
+           <property name="text">
+            <string>扫描信息: 准备就绪...</string>
+           </property>
+          </widget>
+         </item>
+         <item>
           <widget class="QTableWidget" name="urlsTableWidget"/>
          </item>
         </layout>
@@ -66,9 +73,23 @@
           </widget>
          </item>
          <item>
+          <widget class="QPushButton" name="stopScanPushButton">
+           <property name="text">
+            <string>停止扫描</string>
+           </property>
+          </widget>
+         </item>
+         <item>
           <widget class="QPushButton" name="importFromFilePushButton">
            <property name="text">
             <string>从文件导入</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="clearPushButton">
+           <property name="text">
+            <string>清空</string>
            </property>
           </widget>
          </item>

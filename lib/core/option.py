@@ -58,6 +58,12 @@ def set_running_options(args):
         running_config.threads = 10
     running_config.threads = int(running_config.threads)
 
+    # 自定义超时时间
+    running_config.timeout = vulnscan_config.TimeOut
+    if running_config.timeout is None:
+        running_config.timeout = 10
+    running_config.timeout = int(running_config.timeout)
+
 
 def search_plugin(custom_plugins):
     plugins_path = vulnscan_paths['vulnscan_plugins_path']

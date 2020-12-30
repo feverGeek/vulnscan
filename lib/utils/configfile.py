@@ -124,3 +124,30 @@ def configFileParser(configFile):
             # datatype = unArrayizeValue(datatype)
             # 将配置写入变量
             configFileProxy(family, option, datatype)
+
+
+def modifyConfigFile(configFile, dict):
+    # global conf
+
+    checkFile(configFile)
+
+    conf = configparser.ConfigParser()
+    conf.read(configFile, encoding='utf-8')
+    # print(conf.sections)
+    # for s in conf.sections():
+        # print(conf.items(s))
+
+    parser = configparser.ConfigParser()
+    parser.read_dict(dict)
+    for section in parser.sections():
+        for option in parser[section]:
+            conf[section][option] = parser[section][option]
+
+    # print(conf.sections)
+    # for s in conf.sections():
+        # print(conf.items(s))
+
+    with open(configFile, 'w+') as f:
+        conf.write(f)
+
+    configFileParser(configFile)
