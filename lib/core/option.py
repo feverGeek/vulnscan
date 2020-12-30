@@ -1,6 +1,6 @@
 import os
 
-from lib.core.data import vulnscan_paths, running_config, vulnscan_config
+from lib.core.data import vulnscan_paths, running_config, vulnscan_config, all_plugins
 from lib.core.common import makeurl
 from lib.core.datatype import AttribDict
 from lib.utils.configfile import checkFile
@@ -45,6 +45,8 @@ def set_running_options(args):
         search_plugin(args.plugins)
         running_config.custom_plugin = True
         register_plugins(args.plugins)
+    elif args.graphic:
+        running_config.custom_plugin = True
     else:
         plugins = os.listdir(vulnscan_paths['vulnscan_plugins_path'])
         plugins.remove('__init__.py')
@@ -64,6 +66,14 @@ def set_running_options(args):
         running_config.timeout = 10
     running_config.timeout = int(running_config.timeout)
 
+def init_all_plugins():
+    # global all_plugins
+    # all_plugins = os.listdir(vulnscan_paths['vulnscan_plugins_path'])
+    # all_plugins.remove('__init__.py')
+    # all_plugins.remove('__pycache__')
+    # print('all_plugins')
+    # print(all_plugins)
+    pass
 
 def search_plugin(custom_plugins):
     plugins_path = vulnscan_paths['vulnscan_plugins_path']

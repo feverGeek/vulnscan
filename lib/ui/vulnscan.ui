@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>vulnscan</string>
   </property>
-  <layout class="QHBoxLayout" name="horizontalLayout">
+  <layout class="QHBoxLayout" name="horizontalLayout_6">
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
@@ -114,7 +114,35 @@
       <attribute name="title">
        <string>收录漏洞</string>
       </attribute>
-      <layout class="QHBoxLayout" name="horizontalLayout_6">
+      <layout class="QVBoxLayout" name="verticalLayout_5">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <widget class="QLabel" name="pluginsLabel">
+           <property name="text">
+            <string>插件: </string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="pluginsLineEdit"/>
+         </item>
+         <item>
+          <widget class="QPushButton" name="importPluginPushButton">
+           <property name="text">
+            <string>导入</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="clearPluginsPushButton">
+           <property name="text">
+            <string>清空</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
        <item>
         <widget class="QTableWidget" name="vulnsTableWidget"/>
        </item>

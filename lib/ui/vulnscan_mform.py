@@ -3,8 +3,9 @@ from PyQt5.QtCore import pyqtSlot
 from PyQt5.QtCore import Qt
 
 from lib.core.start import start_scan
-from lib.core.data import vulnscan_config, running_config
+from lib.core.data import vulnscan_config, running_config, all_plugins
 from lib.core.common import makeurl
+from lib.core.option import register_plugins
 from lib.ui.vulnscan_ui import Ui_Form
 from lib.utils.configfile import checkFile, modifyConfigFile
 
@@ -16,13 +17,13 @@ class MForm(QWidget, Ui_Form):
 
         # 将配置文件内容显示出来
         # 收录漏洞页显示
-        plugins_count = len(running_config.plugins)
-        for row in range(plugins_count):
-            self.vulnsTableWidget.insertRow(row)
-            item = QTableWidgetItem('%s' % (row + 1))
-            self.vulnsTableWidget.setItem(row, 0, item)
-            item = QTableWidgetItem('%s' % running_config.plugins[row])
-            self.vulnsTableWidget.setItem(row, 1, item)
+        # plugins_count = len(running_config.plugins)
+        # for row in range(plugins_count):
+        #     self.vulnsTableWidget.insertRow(row)
+        #     item = QTableWidgetItem('%s' % (row + 1))
+        #     self.vulnsTableWidget.setItem(row, 0, item)
+        #     item = QTableWidgetItem('%s' % running_config.plugins[row])
+        #     self.vulnsTableWidget.setItem(row, 1, item)
 
         # 设置页显示
         self.threadsLineEdit.setText(str(vulnscan_config.threads))
@@ -49,20 +50,34 @@ class MForm(QWidget, Ui_Form):
     @pyqtSlot()
     def on_startPushButton_clicked(self):
         running_config.urls = []
+        running_config.plugins = []
         if not self.urlsTableWidget.rowCount():
             self.showdialog('警告', 'URL不能为空')
             return
         
+        if not self.vulnsTableWidget.rowCount():
+            self.showdialog('警告', '插件不能为空')
+            return
+        
+        # 注册url
         row_count = self.urlsTableWidget.rowCount()
         for r in range(row_count):
             url = self.urlsTableWidget.item(r, 1).text()
             running_config.urls.append(url)
         
+        # 注册插件
+        # plugins = []
+        # row_count = self.vulnsTableWidget.rowCount()
+        # for r in range(row_count):
+        #     plugin = self.vulnsTableWidget.item(r, 1).text()
+        #     plugins.append(plugin) 
+        # register_plugins(plugins)
+
         print(running_config)
         print(running_config.urls)
         print(len(running_config.urls))
 
-        start_scan()
+        # start_scan()
         self.scanInfoLabel.setText('扫描信息: 扫描开始, 请等待...')
 
     @pyqtSlot()
@@ -90,8 +105,33 @@ class MForm(QWidget, Ui_Form):
     def on_clearPushButton_clicked(self):
         for row in range(self.urlsTableWidget.rowCount()):
             self.urlsTableWidget.removeRow(0)
-        
         running_config.urls = []
+
+    @pyqtSlot()
+    def on_importPluginPushButton_clicked(self):
+        plugin = self.pluginsLineEdit.text()
+        if not plugin:
+            self.showdialog('警告', '插件不能为空')
+            return
+
+        if plugin not in all_plugins:
+            self.showdialog('警告', f'不存在{plugin}')
+            return
+
+        row = self.vulnsTableWidget.rowCount()
+
+        self.vulnsTableWidget.insertRow(row)
+        item = QTableWidgetItem('%s' % (row + 1))
+        self.vulnsTableWidget.setItem(row, 0, item)
+
+        item = QTableWidgetItem('%s' % plugin)
+        self.vulnsTableWidget.setItem(row, 1, item)
+
+    @pyqtSlot()
+    def on_clearPluginsPushButton_clicked(self):
+        for row in range(self.vulnsTableWidget.rowCount()):
+            self.vulnsTableWidget.removeRow(0)
+        running_config.plugins = []
 
     @pyqtSlot()
     def on_applyPushButton_clicked(self):

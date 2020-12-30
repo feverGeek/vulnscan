@@ -7,7 +7,7 @@ import traceback
 
 from lib.core.common import banner, systemQuit
 from lib.core.enums import EXIT_STATUS
-from lib.core.option import set_running_options, init_project_path
+from lib.core.option import set_running_options, init_project_path, init_all_plugins
 from lib.core.start import start_scan
 from lib.core.exceptions import ToolkitMissingPrivileges, ToolkitSystemException, ToolkitUserQuitException
 from lib.core.data import logger
@@ -59,8 +59,9 @@ if __name__ == '__main__':
         # 读取配置文件
         configFileParser('./config.conf')
 
-        # 设置运行时选项
+        # 初始化
         init_project_path()
+        init_all_plugins()
         set_running_options(args)
 
         # 开始扫描
