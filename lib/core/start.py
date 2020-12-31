@@ -19,7 +19,8 @@ def start_scan():
     print("扫描开始")
     for t in threading.enumerate():
         print(t)
-    time.sleep(10)
+    # time.sleep(10)
     print(running_config)
     Exploit(running_config.urls, running_config.plugins, running_config.threads).run()
+    time.sleep(10)
     print('扫描结束')
