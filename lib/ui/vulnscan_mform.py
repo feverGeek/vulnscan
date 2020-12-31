@@ -19,7 +19,11 @@ class MForm(QWidget, Ui_Form):
         super(MForm, self).__init__(parent)
         self.setupUi(self)
 
+        print(f"活动线程数:{threading.active_count()}")
+        for t in threading.enumerate():
+            print(t)
         self.scan_thread = Starter()
+        # self.scan_thread.setDaemon(True)
         self.scan_thread.finished.connect(self.finish_slot)
 
         # 设置页显示
@@ -31,7 +35,9 @@ class MForm(QWidget, Ui_Form):
     @pyqtSlot()
     def on_importPushButton_clicked(self):
         if threading.active_count() > 1:
-            self.showdialog('警告', '正在扫描')
+            for t in threading.enumerate():
+                print(t)
+            self.showdialog('警告', f'正在扫描{self.scan_thread.isRunning()}')
             return
 
         url = self.urlLineEdit.text()
