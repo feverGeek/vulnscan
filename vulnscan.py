@@ -23,7 +23,6 @@ def console_main():
     # 开始扫描
     start_scan()
 
-
 def graphic_main():
     app = QtWidgets.QApplication(sys.argv)
     m = MForm()

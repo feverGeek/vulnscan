@@ -31,4 +31,4 @@ def check(url):
                            url + payload3 + ' | get | ')
 
     except Exception as e:
-        print(e)
+        return e

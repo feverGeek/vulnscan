@@ -12,3 +12,6 @@ vulnscan_config = AttribDict()
 
 # vulnscan 运行时参数
 running_config = AttribDict()
+
+# 所有插件
+all_plugins = []

@@ -1,6 +1,7 @@
 import os
 
-from lib.core.data import vulnscan_paths, running_config, vulnscan_config, all_plugins
+from lib.core import data
+from lib.core.data import vulnscan_paths, running_config, vulnscan_config 
 from lib.core.common import makeurl
 from lib.core.datatype import AttribDict
 from lib.utils.configfile import checkFile
@@ -13,7 +14,8 @@ def init_project_path():
     vulnscan_paths.vulnscan_lib_core_path = root_path + '/lib/core'
     vulnscan_paths.vulnscan_lib_utils_path = root_path + '/lib/utils'
     vulnscan_paths.vulnscan_plugins_path = root_path + '/plugins'
-    # print(vulnscan_paths) 
+    vulnscan_paths.vulnscan_results_path = root_path + '/results'
+    print(vulnscan_paths) 
 
 def set_running_options(args):
 
@@ -67,13 +69,11 @@ def set_running_options(args):
     running_config.timeout = int(running_config.timeout)
 
 def init_all_plugins():
-    # global all_plugins
-    # all_plugins = os.listdir(vulnscan_paths['vulnscan_plugins_path'])
-    # all_plugins.remove('__init__.py')
-    # all_plugins.remove('__pycache__')
+    data.all_plugins = os.listdir(vulnscan_paths['vulnscan_plugins_path'])
+    data.all_plugins.remove('__init__.py')
+    data.all_plugins.remove('__pycache__')
     # print('all_plugins')
-    # print(all_plugins)
-    pass
+    # print(data.all_plugins)
 
 def search_plugin(custom_plugins):
     plugins_path = vulnscan_paths['vulnscan_plugins_path']
