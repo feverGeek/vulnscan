@@ -22,9 +22,8 @@ class MForm(QWidget, Ui_Form):
         print(f"活动线程数:{threading.active_count()}")
         for t in threading.enumerate():
             print(t)
+
         self.scan_thread = Starter()
-        # self.scan_thread.setDaemon(True)
-        self.scan_thread.finished.connect(self.finish_slot)
 
         # 设置页显示
         self.threadsLineEdit.setText(str(vulnscan_config.threads))
@@ -34,10 +33,10 @@ class MForm(QWidget, Ui_Form):
 
     @pyqtSlot()
     def on_importPushButton_clicked(self):
-        if threading.active_count() > 1:
+        if self.scan_thread.isRunning():
             for t in threading.enumerate():
                 print(t)
-            self.showdialog('警告', f'正在扫描{self.scan_thread.isRunning()}')
+            self.showdialog('警告', f'正在扫描')
             return
 
         url = self.urlLineEdit.text()
@@ -56,7 +55,7 @@ class MForm(QWidget, Ui_Form):
 
     @pyqtSlot()
     def on_startPushButton_clicked(self):
-        if threading.active_count() > 1:
+        if self.scan_thread.isRunning():
             self.showdialog('警告', '正在扫描')
             return
 
@@ -84,6 +83,7 @@ class MForm(QWidget, Ui_Form):
             plugins.append(plugin) 
         register_plugins(plugins)
 
+        self.scan_thread.finished.connect(self.finish_slot)
         self.scan_thread.start()
         self.scanInfoLabel.setText('扫描信息: 扫描开始, 请等待...')
 
@@ -93,12 +93,11 @@ class MForm(QWidget, Ui_Form):
 
     @pyqtSlot()
     def on_importFromFilePushButton_clicked(self):
-        if threading.active_count() > 1:
+        if self.scan_thread.isRunning():
             self.showdialog('警告', '正在扫描')
             return
 
-        filename, filetype = QFileDialog.getOpenFileName(
-            self, "choose file", "", "*.txt")
+        filename, filetype = QFileDialog.getOpenFileName(self, "choose file", "", "*.txt")
         if not filename:
             return
 
@@ -118,7 +117,7 @@ class MForm(QWidget, Ui_Form):
         
     @pyqtSlot()
     def on_clearPushButton_clicked(self):
-        if threading.active_count() > 1:
+        if self.scan_thread.isRunning():
             self.showdialog('警告', '正在扫描')
             return
 
@@ -128,7 +127,7 @@ class MForm(QWidget, Ui_Form):
 
     @pyqtSlot()
     def on_importPluginPushButton_clicked(self):
-        if threading.active_count() > 1:
+        if self.scan_thread.isRunning():
             self.showdialog('警告', '正在扫描')
             return
 
@@ -152,7 +151,7 @@ class MForm(QWidget, Ui_Form):
 
     @pyqtSlot()
     def on_clearPluginsPushButton_clicked(self):
-        if threading.active_count() > 1:
+        if self.scan_thread.isRunning():
             self.showdialog('警告', '正在扫描')
             return
 
@@ -162,7 +161,7 @@ class MForm(QWidget, Ui_Form):
 
     @pyqtSlot()
     def on_applyPushButton_clicked(self):
-        if threading.active_count() > 1:
+        if self.scan_thread.isRunning():
             self.showdialog('警告', '正在扫描')
             return
 

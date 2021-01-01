@@ -17,10 +17,9 @@ class Starter(QThread):
 
 def start_scan():
     print("扫描开始")
-    for t in threading.enumerate():
-        print(t)
-    # time.sleep(10)
+    # for t in threading.enumerate():
+    #     print(t)
     print(running_config)
-    Exploit(running_config.urls, running_config.plugins, running_config.threads).run()
-    time.sleep(10)
+    e = Exploit(running_config.urls, running_config.plugins, running_config.threads)
+    e.run()
     print('扫描结束')
