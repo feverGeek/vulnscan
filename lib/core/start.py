@@ -1,9 +1,11 @@
-import threading
+import os
 import time
+import threading
 
 from PyQt5.QtCore import QThread
 
-from lib.core.data import running_config
+from lib.utils import csv_tools
+from lib.core.data import running_config, vulnscan_paths
 from lib.core.exploit import Exploit
 
 
@@ -17,9 +19,14 @@ class Starter(QThread):
 
 def start_scan():
     print("扫描开始")
-    # for t in threading.enumerate():
-    #     print(t)
-    print(running_config)
+
     e = Exploit(running_config.urls, running_config.plugins, running_config.threads)
     e.run()
+
+    csv_filename = time.strftime("%Y-%m-%d-%H-%M-%S.csv", time.localtime())
+    csv_filename = os.path.join(vulnscan_paths['vulnscan_results_path'], csv_filename)
+    header = ['ID', '网站地址', '漏洞']
+    print(f"扫描结果 {e.results}" )
+    # csv_tools.csv_generate(csv_filename, header, e.results)
+
     print('扫描结束')
