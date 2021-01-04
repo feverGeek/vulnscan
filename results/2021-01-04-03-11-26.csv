@@ -1,9 +1,0 @@
-ID,网站地址,脚本,漏洞信息,请求类型,请求包
-1,http://10.0.0.169/ThinkAdmin-5/public/index.php/,plugins/thinkadmin,thinkadmin_unauthorized_access,GET,"GET /ThinkAdmin-5/public/index.php/?s=admin/ HTTP/1.1
-Host: 10.0.0.169
-User-Agent: python-requests/2.24.0
-Accept-Encoding: gzip, deflate
-Accept: */*
-Connection: keep-alive
-Cookie: s7d589e99=ht620nrflcik1a7aqjphv5jth4
-"
