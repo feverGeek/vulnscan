@@ -87,7 +87,7 @@ def check(url):
                 if ('PHP Version' in r.text) or ('PHP Extension Build' in r.text):
                     items['Type'] = 'POST' 
                     items['Request'] = make_request_package(r.request)
-                    print(url + ' ' + payload)
+                    # print(url + ' ' + payload)
                     results.append(items.copy())
     
         suffix = r'?s=captcha&test=phpinfo()'

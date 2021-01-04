@@ -1,5 +1,5 @@
 import os
-
+from collections.abc import Iterable
 
 def prt(title, str):
     terminal_width = os.get_terminal_size().columns
@@ -20,6 +20,12 @@ def format_prt(data):
 
 def result_prt(data):
     try:
-        
-    except:
-        pass
+        for items in data:
+            if isinstance(items, Iterable):
+                for d in items:
+                    for k,v in d.items():
+                        print(k,v)
+            else:
+                print(items)
+    except Exception as e:
+        print(e)

