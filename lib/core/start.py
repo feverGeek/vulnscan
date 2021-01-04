@@ -20,7 +20,7 @@ class Starter(QThread):
 
 def start_scan():
     print("扫描开始")
-
+    output.prt('running_config', running_config)
     e = Exploit(running_config.urls, running_config.plugins, running_config.threads)
     e.run()
 
@@ -28,8 +28,8 @@ def start_scan():
     csv_filename = os.path.join(vulnscan_paths['vulnscan_results_path'], csv_filename)
     # ID Url Script Vuln Type Request
     header = ['ID', '网站地址', '脚本', '漏洞信息', '请求类型', '请求包']
-    print(f"扫描结果 {e.results}" )
+    output.prt('扫描结果')
     output.result_prt(e.results)
     csv_tools.csv_generate(csv_filename, header, e.results)
 
-    print('扫描结束')
+    output.prt('扫描结束')

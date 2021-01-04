@@ -10,12 +10,11 @@ def init_project_path():
     # 初始化项目路径
     root_path = os.getcwd()
     vulnscan_paths.vulnscan_root_path = root_path
-    vulnscan_paths.vulnscan_lib_path = root_path + '/lib',
-    vulnscan_paths.vulnscan_lib_core_path = root_path + '/lib/core'
-    vulnscan_paths.vulnscan_lib_utils_path = root_path + '/lib/utils'
-    vulnscan_paths.vulnscan_plugins_path = root_path + '/plugins'
-    vulnscan_paths.vulnscan_results_path = root_path + '/results'
-    print(vulnscan_paths) 
+    vulnscan_paths.vulnscan_lib_path = os.path.join(root_path, 'lib') # root_path + '/lib',
+    vulnscan_paths.vulnscan_lib_core_path = os.path.join(root_path, 'lib', 'core') # root_path + '/lib/core'
+    vulnscan_paths.vulnscan_lib_utils_path = os.path.join(root_path, 'lib', 'utils') # root_path + '/lib/utils'
+    vulnscan_paths.vulnscan_plugins_path = os.path.join(root_path, 'plugins') # root_path + '/plugins'
+    vulnscan_paths.vulnscan_results_path = os.path.join(root_path, 'results') # root_path + '/results'
 
 def set_running_options(args):
 
@@ -44,6 +43,7 @@ def set_running_options(args):
 
     # 注册用户指定插件
     if args.plugins:
+        # print(args.plugins)
         search_plugin(args.plugins)
         running_config.custom_plugin = True
         register_plugins(args.plugins)
@@ -51,10 +51,13 @@ def set_running_options(args):
         running_config.custom_plugin = True
     else:
         plugins = os.listdir(vulnscan_paths['vulnscan_plugins_path'])
-        plugins.remove('__init__.py')
-        plugins.remove('__pycache__')
+        try:
+            plugins.remove('__init__.py')
+            plugins.remove('__pycache__')
+        except:
+            pass
         register_plugins(plugins)
-        print(running_config.plugins)
+        # print(running_config.plugins)
 
     # 自定义线程数
     running_config.threads = vulnscan_config.threads
@@ -70,8 +73,12 @@ def set_running_options(args):
 
 def init_all_plugins():
     data.all_plugins = os.listdir(vulnscan_paths['vulnscan_plugins_path'])
-    data.all_plugins.remove('__init__.py')
-    data.all_plugins.remove('__pycache__')
+    try:
+        data.all_plugins.remove('__init__.py')
+        data.all_plugins.remove('__pycache__')
+    except:
+        pass
+
     # print('all_plugins')
     # print(data.all_plugins)
 

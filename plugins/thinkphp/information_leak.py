@@ -33,8 +33,10 @@ def check(url):
     payload9 = '?s=/home/order/cancel/id/1%27'
 
     try:
+        s = requests.session()
+        s.keep_alive = False
         for payload in (payload1,payload2,payload3,payload4,payload5,payload6,payload7,payload8,payload9):
-            res = requests.get(url + payload, headers=headers)
+            res = s.get(url + payload, headers=headers)
             if '1064 You have' in res:
                 items['Type'] = 'GET'
                 items['Request'] = make_request_package(res.request)

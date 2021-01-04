@@ -10,8 +10,8 @@ from lib.core.enums import EXIT_STATUS
 from lib.core.option import set_running_options, init_project_path, init_all_plugins
 from lib.core.start import start_scan
 from lib.core.exceptions import ToolkitMissingPrivileges, ToolkitSystemException, ToolkitUserQuitException
-from lib.core.data import logger
-
+from lib.core.data import logger, running_config, vulnscan_paths
+from lib.utils.output import prt
 from lib.utils.configfile import configFileParser
 
 from lib.ui.vulnscan_ui import Ui_Form
@@ -60,6 +60,7 @@ if __name__ == '__main__':
 
         # 初始化
         init_project_path()
+        prt('vulnscan_paths', vulnscan_paths) 
         init_all_plugins()
         set_running_options(args)
 

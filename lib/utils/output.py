@@ -1,7 +1,7 @@
 import os
 from collections.abc import Iterable
 
-def prt(title, str):
+def prt(title, str=''):
     terminal_width = os.get_terminal_size().columns
     title_length = len(title)
     side_width = int((terminal_width - title_length) / 2)
@@ -26,6 +26,7 @@ def result_prt(data):
                     for k,v in d.items():
                         print(k,v)
             else:
-                print(items)
+                pass
+                # print(items)
     except Exception as e:
         print(e)

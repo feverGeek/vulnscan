@@ -53,9 +53,11 @@ def check(url):
         ]
 
     try:
+        s = requests.session()
+        s.keep_alive = False
         for payload in payloads:
             # print(url + ' ' + payload)
-            r = requests.get(url + payload, headers=headers)
+            r = s.get(url + payload, headers=headers)
             if r.status_code == 200:
                 items['Type'] = 'GET'
                 items['Request'] = make_request_package(r.request)

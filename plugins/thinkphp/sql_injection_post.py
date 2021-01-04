@@ -22,13 +22,15 @@ def check(url):
         return data 
 
     try:
+        s = requests.session()
+        s.keep_alive = False
         for i in range(1,2):
             data = make_data(1)
-            requests.post(url= url + payload, files=data)
+            s.post(url= url + payload, files=data)
             timea = time.time()
 
             data = make_data(5)
-            r = requests.post(url= url + payload, files=data)
+            r = s.post(url= url + payload, files=data)
             timeb = time.time()
             if timeb - timea > 4.5:
                 items['Type'] = 'POST'

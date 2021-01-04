@@ -23,7 +23,9 @@ def check(url):
         }
 
     try:
-        res = requests.post(url + payload, headers = headers)
+        s = requests.session()
+        s.keep_alive = False
+        res = s.post(url + payload, headers = headers)
         # md5(233)
         if 'e165421110ba03099a1c0393373c5b4' in res:
             items['Request'] = make_request_package(res.request) 
