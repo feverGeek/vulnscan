@@ -6,6 +6,16 @@ import time
 from lib.utils.path_info import get_path_info
 from lib.utils.package import make_request_package 
 
+headers = {
+    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:76.0) Gecko/20100101 Firefox/76.0',
+    'Accept-Language': '*',
+    'Accept-Encoding': '*',
+    'Keep-Alive': '300',
+    'Connection': 'Keep-Alive',
+    'Cache-Control': 'max-age=0'
+    }
+
+
 def check(url):
     results = []
     items = {
